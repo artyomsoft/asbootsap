@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "graphics.h": "c",
+        "memory.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "string.h": "c",
+        "bootloader.h": "c",
+        "atomic": "cpp",
+        "cstdint": "cpp",
+        "filesystems.h": "c",
+        "efilib.h": "c",
+        "linuxtypes.h": "c",
+        "chainload.h": "c",
+        "configparser.h": "c",
+        "random": "cpp"
+    },
+        "clang-format.executable": "/usr/bin/clang-format"
+}

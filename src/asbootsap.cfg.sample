@@ -1,0 +1,5 @@
+#efi_chainload efi_handover linux64
+protocol efi_chainload
+linux \vmlinuz
+initrd \initrd.img
+cmdline root=UUID=7c1d6f3a-efeb-44b1-bc44-2274e138d1de

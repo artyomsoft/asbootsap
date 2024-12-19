@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Debug UEFI App",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/asbootsap.efi",
+            "miDebuggerServerAddress": "localhost:1234",
+            "cwd": "${workspaceRoot}",
+            "externalConsole": true,
+            "linux": {
+              "MIMode": "gdb"
+            },
+     //       "preLaunchTask": "start-debug",
+            "stopAtEntry": true,
+            "stopAtConnect": true,
+          }
+    ]
+}

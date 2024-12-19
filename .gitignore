@@ -1,0 +1,9 @@
+esp/
+build/
+disk.img
+*.o
+*.efi
+*.so
+*.debug
+*.log
+*.lst
