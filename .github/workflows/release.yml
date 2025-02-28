@@ -25,12 +25,12 @@ jobs:
         run: sudo apt update && sudo apt install -y build-essential gnu-efi nasm
 
       - name: Build
-        run: make -C ./src all
+        run: make
 
       - name: Compress
         run: |
           mkdir -p abootsap-${VERSION}
-          cp {src/asbootsap.efi,src/asbootsap.cfg.sample} abootsap-${VERSION}
+          cp {build/asbootsap.efi,src/asbootsap.cfg.sample} abootsap-${VERSION}
           7z a asbootsap-${VERSION}.7z abootsap-${VERSION}
 
       - name: Release with Notes

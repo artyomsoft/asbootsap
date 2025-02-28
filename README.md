@@ -17,13 +17,13 @@ apt install -y build-essential gnu-efi nasm
 To build:
 
 ```
-make -C src all
+make
 ```
 
 To clean build:
 
 ```
-make -C src clean
+make clean
 ```
 
 To install _asbootsap_ bootloader you need to place it as BOOTX64.EFI in the \EFI\BOOT directory of ESP partition on flash drive with Linux. Also you need to place vmlinuz and initrd.img images of your Linux and asbootsap.cfg file to ESP partition.

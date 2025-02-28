@@ -6,7 +6,7 @@ section .text
 
 global ReloadSegments
 
-ReloadSegments
+ReloadSegments:
    push 0x10
    lea rax, [rel reload_cs] ; Load address of .reload_CS into RAX
    push rax                  ; Push this value to the stack

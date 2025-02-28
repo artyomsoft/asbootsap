@@ -26,9 +26,9 @@ UINT64 Gdt[] = {
     0x0000930000000000, // DATA
 };
 
-static DESCRIPTOR GdtDescriptor __attribute__((aligned(4096))) = {Limit : sizeof(Gdt) - 1, Base : Gdt};
+static DESCRIPTOR GdtDescriptor __attribute__((aligned(4096))) = {.Limit = sizeof(Gdt) - 1, .Base = Gdt};
 
-static DESCRIPTOR IdtDescriptor __attribute__((aligned(4096))) = {Limit : 0, Base : 0};
+static DESCRIPTOR IdtDescriptor __attribute__((aligned(4096))) = {.Limit = 0, .Base = 0};
 
 static VOID JumpToKernel(EFI_PHYSICAL_ADDRESS KernelStart, BOOT_PARAMS *BootParams)
 {
