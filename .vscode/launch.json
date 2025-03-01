@@ -6,7 +6,7 @@
             "name": "Debug UEFI App",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/asbootsap.efi",
+            "program": "${workspaceRoot}/build/asbootsap.efi",
             "miDebuggerServerAddress": "localhost:1234",
             "cwd": "${workspaceRoot}",
             "externalConsole": true,

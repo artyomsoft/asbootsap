@@ -2,12 +2,14 @@
 #include <efi.h>
 #include <efilib.h>
 
-static CHAR16 *CovertCommandLineToLoadOptions(CHAR8 *CommandLine)
+static CHAR16 *ConvertCommandLineToLoadOptions(CHAR16 *InitRdFileName, CHAR8 *CommandLine)
 {
-    CHAR8 *InitRd = (CHAR8 *)"initrd=initrd.img ";
-    CHAR16 *Result = AllocateZeroPool(strlena(InitRd) + strlena(CommandLine) + 2);
+    CHAR8 *InitRd = (CHAR8 *)"initrd=";
+    UINTN len = (strlena(InitRd) + strlena(CommandLine) + 1 + StrLen(InitRdFileName) + 1) * 2;
+    CHAR16 *Result = AllocateZeroPool(len);
     CHAR16 *Current = Result;
     CHAR8 *Char;
+    CHAR16 *Char16;
     Char = InitRd;
 
     for (; *Char; Char++, Current++)
@@ -15,15 +17,26 @@ static CHAR16 *CovertCommandLineToLoadOptions(CHAR8 *CommandLine)
         *Current = *Char;
     }
 
-    for (; *Char; Char++, Current++)
+    Print(L"%s\n", InitRdFileName);
+
+    Char16 = InitRdFileName;
+    for (; *Char16; Char16++, Current++)
     {
-        *Current = *Char;
+        *Current = *Char16;
     }
+
+    *Current++ = L' ';
+
     Char = CommandLine;
+
     for (; *Char; Char++, Current++)
     {
         *Current = *Char;
     }
+
+    //    *Current++ = 0;
+
+    Print(L"%s", Result);
     return Result;
 }
 
@@ -88,7 +101,7 @@ EFI_STATUS StartLinuxEfiImage(EFI_HANDLE *LinuxImageHandle)
     return EFI_SUCCESS;
 }
 
-EFI_STATUS SetupLoadOptions(EFI_HANDLE LinuxImageHandle, CHAR8 *CommandLine)
+EFI_STATUS SetupLoadOptions(EFI_HANDLE LinuxImageHandle, CHAR16 *InitRdFileName, CHAR8 *CommandLine)
 {
     Print(L"Setting up loading options...\n");
 
@@ -102,7 +115,7 @@ EFI_STATUS SetupLoadOptions(EFI_HANDLE LinuxImageHandle, CHAR8 *CommandLine)
         return status;
     }
 
-    CHAR16 *LoadOptions = CovertCommandLineToLoadOptions(CommandLine);
+    CHAR16 *LoadOptions = ConvertCommandLineToLoadOptions(InitRdFileName, CommandLine);
 
     LinuxImage->LoadOptions = LoadOptions;
     LinuxImage->LoadOptionsSize = StrSize(LoadOptions);
@@ -125,7 +138,7 @@ BOOTLOADER_STATUS ChainLoadBoot(BOOT_CONTEXT *BootContext)
         return BOOTLOADER_ERROR;
     }
 
-    if (EFI_ERROR(SetupLoadOptions(LinuxImageHandle, BootContext->Config->CommandLine)))
+    if (EFI_ERROR(SetupLoadOptions(LinuxImageHandle, BootContext->Config->InitRd, BootContext->Config->CommandLine)))
     {
         return BOOTLOADER_ERROR;
     }

@@ -76,11 +76,11 @@ $(BUILD_DIR)/%.so: $(OBJS) $(OBJS_ASM)
 
 # Build step for C source
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.c
-	mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIRS)/%.asm
-	mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	nasm -g -f elf64 -l $@.lst $< -o $@
 
 .PHONY: clean
